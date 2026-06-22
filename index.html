@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <title>SpendThrift</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <div class="top-bar">
+    <div style="display:flex; align-items:center; gap:10px;">
+        <h1 class="page-title">SpendThrift</h1>
+        <span class="help-icon" onclick="openHelp()">i</span>
+    </div>
+
+    <div class="top-buttons">
+        <div id="topTotal" class="top-total"></div>
+
+        <button class="stats-btn" onclick="openStatsPage()">
+            📈 My Stats
+        </button>
+
+        <button class="add-btn" onclick="openForm()">
+            + Add Expense
+        </button>
+    </div>
+</div>
+
+
+<!-- STATS PAGE -->
+<div id="statsPage" class="hidden stats-page">
+
+    <h2>Spending Analytics</h2>
+
+    <div class="charts-container">
+
+        <div class="chart-box">
+            <h3>Lifetime Spending Trend</h3>
+            <canvas id="lineChart"></canvas>
+        </div>
+
+        <div class="chart-box">
+            <h3>Spending by Category</h3>
+            <canvas id="pieChart"></canvas>
+        </div>
+
+    </div>
+
+    <button class="add-btn" onclick="closeStatsPage()">Close</button>
+
+</div>
+<!-- EXPENSE LIST -->
+<div id="cravingsList"></div>
+
+<!-- FORM CONTAINER -->
+<div id="formContainer" class="hidden form-box">
+  <div class="form-card">
+
+    <div style="display:flex; justify-content:space-between; align-items:center;">
+        <h2>New Expense</h2>
+        <span class="help-icon" onclick="openHelp()">?</span>
+        </div>
+
+    <input type="text" id="title" placeholder="Expense Title *">
+    <input type="text" id="amount" placeholder="Amount *" oninput="formatAmount(this)">
+
+    <div class="datetime-section">
+        <div class="datetime-input-wrapper" id="datetimeWrapper">
+            <input type="datetime-local" id="datetime" readonly>
+        </div>
+
+        <label class="checkbox-row">
+            <input type="checkbox" id="useCurrentTime" checked onchange="toggleDateTimeMode()">
+            <span>Use current date and time</span>
+        </label>
+    </div>
+
+    <select id="category">
+        <option value="">Select Category</option>
+        <option>Housing</option>
+        <option>Utilities</option>
+        <option>Food</option>
+        <option>Transportation</option>
+        <option>Healthcare</option>
+        <option>Electronics</option>
+        <option>Education</option>
+        <option>Entertainment</option>
+        <option>Personal Care</option>
+        <option>Savings & Investments</option>
+        <option>Other</option>
+    </select>
+
+    <input type="text" id="customCategory" placeholder="Specify category (optional)" class="hidden">
+
+    <textarea id="note" placeholder="Note (optional)"></textarea>
+
+    <button onclick="saveExpense()">Save</button>
+    <button onclick="closeForm()">Cancel</button>
+
+</div>
+   <div id="helpModal" class="help-modal">
+
+  <div class="help-box">
+
+    <!-- CARD 1 -->
+    <div class="help-step" id="step-1">
+      <h3 class="help-title">Welcome to SpendThrift</h3>
+      <p>
+        SpendThrift is a clean and powerful expense tracker designed to help you monitor your daily spending with clarity.
+      </p>
+      <p>
+        Add expenses, categorize them, attach dates, include images, and manage everything in one minimal interface.
+      </p>
+      <p>
+        Designed for simplicity, built for control.
+      </p>
+
+      <div class="help-buttons">
+        <button class="next-btn" onclick="nextStep()">Next</button>
+      </div>
+    </div>
+
+    <!-- CARD 2 -->
+    <div class="help-step hidden" id="step-2">
+      <h3 class="help-title">How It Works</h3>
+
+      <p>• <b>Title</b> – What you spent money on</p>
+      <p>• <b>Amount</b> – Money spent on it</p>
+      <p>• <b>Date & Time</b> – Use current time or custom</p>
+      <p>• <b>Category</b> – Organize expenses by type</p>
+      <p>• <b>Note</b> – Optional details</p>
+      <p>• <b>3-Dot Menu</b> – Edit or delete any expense</p>
+
+      <div class="help-buttons">
+        <button onclick="prevStep()">Back</button>
+        <button class="next-btn" onclick="nextStep()">Next</button>
+      </div>
+    </div>
+
+    <!-- CARD 3 -->
+    <div class="help-step hidden" id="step-3">
+      <h3 class="help-title">About</h3>
+
+      <p class="about-text">
+  SpendThrift was designed and developed by
+</p>
+
+<h4 class="about-name">Penumaka Abhishek Paul</h4>
+
+      <p>
+        He is an 18-year-old B.Tech 1st year student during this time.
+        He is passionate about technology and building clean, user-focused digital products.
+      </p>
+
+      <div class="help-buttons">
+        <button onclick="prevStep()">Back</button>
+        <button class="understood-btn" onclick="closeHelp()">Continue</button>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+    <script src="script.js"></script>
+</body>
+</html>
